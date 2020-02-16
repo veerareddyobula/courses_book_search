@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
-import './app.css';
-import ReactImage from './react.png';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import './theme.scss';
 
-export default class App extends Component {
-  state = { username: null };
+import SearchContainer from './containers/search';
 
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
-  }
-
-  render() {
-    const { username } = this.state;
-    return (
-      <div>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
-      </div>
-    );
-  }
-}
+export default () => (
+  <div className="container-fluid">
+    <Router>
+      <Switch>
+        <Route path="/">
+          <SearchContainer />
+        </Route>
+      </Switch>
+    </Router>
+  </div>
+);
